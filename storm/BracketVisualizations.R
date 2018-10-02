@@ -106,3 +106,45 @@ pdf('~/CoupeCanadaCup_Graphs.pdf', width=10, height=10)
 plot(g, edge.arrow.size=0.5, layout=layout_with_gem(g))
 legend('topleft', legend=c('winner','loser'), fill=c('blue','red'))
 dev.off()
+
+
+g2 <- make_empty_graph() +
+	vertices('BostonRec', 'Wolfpack')
+games <- c(
+	paste('Game#4', 'Fri 10pm', sep='\n'),
+	paste('Game#14', 'Sat 4pm', sep='\n'),
+	paste('Game#15', 'Sun 8am', sep='\n'),
+	paste('Game#19', 'Sun 11am', '(Varsity)', sep='\n'),
+	paste('Game#21', 'Sun 1pm', '(Varsity)', sep='\n'),
+	paste('Game#22', 'Sun 11am', sep='\n'),
+	paste('Game#25', 'Sun 2pm', sep='\n'),
+	paste('Game#27', 'Sun 4pm', sep='\n'),
+	paste('Game#28', 'Sun 5pm', sep='\n'),
+	paste('Game#29', 'Sun 6pm', sep='\n')
+	)
+g2 <- add_vertices(g2, length(games), name=games)
+
+g2 <- g2 + edge('BostonRec',   games[1], color='grey')
+g2 <- g2 + edge('Wolfpack',    games[1], color='grey')
+g2 <- g2 + edge(games[1],      games[2], color='red')
+g2 <- g2 + edge(games[1],      games[3], color='blue')
+g2 <- g2 + edge(games[2],      games[4], color='red')
+g2 <- g2 + edge(games[2],      games[5], color='blue')
+g2 <- g2 + edge(games[3],      games[5], color='red')
+g2 <- g2 + edge(games[3],      games[6], color='blue')
+g2 <- g2 + edge(games[6],      games[7], color='red')
+g2 <- g2 + edge(games[6],      games[8], color='blue')
+g2 <- g2 + edge(games[5],      games[9], color='red')
+g2 <- g2 + edge(games[5],      games[10], color='blue')
+
+V(g2)$label.color <- 'black'
+V(g2)$label.color[1:2] <- 'grey'
+V(g2)$size <- 18
+V(g2)$size2 <- 18
+V(g2)$label.cex <- 0.7
+V(g2)$shape <- 'none'
+
+pdf('~/Wolfpack_Graphs.pdf', width=10, height=10)
+plot(g2, edge.arrow.size=0.5, layout=layout_with_gem(g2))
+legend('topleft', legend=c('winner','loser'), fill=c('blue','red'))
+dev.off()
